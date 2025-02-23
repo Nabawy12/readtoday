@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1042017156089",
+    "firebase_url": "https://kickboxing-zezo1-default-rtdb.firebaseio.com",
+    "project_id": "kickboxing-zezo1",
+    "storage_bucket": "kickboxing-zezo1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1042017156089:android:e2e87b42d90835132e5b28",
+        "android_client_info": {
+          "package_name": "com.examplee.readtoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1042017156089-40cfjcr300akhfnerl33754q5mdq0i5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTPmxkAscG62DcR94zHRKwQOQ7h0fYlQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1042017156089-40cfjcr300akhfnerl33754q5mdq0i5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
