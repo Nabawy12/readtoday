@@ -23,6 +23,8 @@ Widget buildArticleContent(
       children: [
         recommendedSection(title, false, onTap),
         SingleSection(
+          rewardID: rewardID,
+          rewardID_show: rewardID_show,
           shape: shape,
           onTap: () {
             Navigator.push(

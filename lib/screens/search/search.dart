@@ -524,6 +524,8 @@ Widget getShapesearch(
                       MaterialPageRoute(
                         builder:
                             (context) => Archive(
+                              rewardID: rewardID,
+                              rewardID_show: rewardID_show,
                               from_categories: true,
                               name: post.categorySearch[0].name,
                               id: post.categorySearch[0].id,
@@ -613,6 +615,8 @@ Widget getShapesearch(
                   MaterialPageRoute(
                     builder:
                         (context) => Archive(
+                          rewardID: rewardID,
+                          rewardID_show: rewardID_show,
                           box_article_mode: archiveShape,
                           id: post.categorySearch[0].id,
                           name: post.categorySearch[0].name,
@@ -630,6 +634,8 @@ Widget getShapesearch(
         (post) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
           child: SingleSection(
+            rewardID: rewardID,
+            rewardID_show: rewardID_show,
             shape: shape!,
             onTap: () {
               Navigator.push(
@@ -723,6 +729,8 @@ Widget getShapesearch(
                         MaterialPageRoute(
                           builder:
                               (context) => Archive(
+                                rewardID: rewardID,
+                                rewardID_show: rewardID_show,
                                 box_article_mode: archiveShape,
                                 from_categories: true,
                                 id: post.categorySearch.first.id,
@@ -896,6 +904,8 @@ Widget getShapesearch(
                 MaterialPageRoute(
                   builder:
                       (context) => Archive(
+                        rewardID: rewardID,
+                        rewardID_show: rewardID_show,
                         box_article_mode: archiveShape,
                         id: post.categorySearch[0].id,
                         name: post.categorySearch[0].name,

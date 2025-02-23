@@ -29,6 +29,8 @@ Widget buildHeader_new_newss(
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: SingleSection(
+          rewardID: rewardID,
+          rewardID_show: rewardID_show,
           shape: shape,
           onTap: () {
             Navigator.push(
@@ -87,6 +89,8 @@ Widget buildHeader_new_newss(
                     MaterialPageRoute(
                       builder:
                           (context) => Archive(
+                            rewardID: rewardID,
+                            rewardID_show: rewardID_show,
                             box_article_mode: shape,
                             from_categories: true,
                             onTab: () {

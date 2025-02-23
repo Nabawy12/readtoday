@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -33,6 +34,8 @@ class Archive extends StatefulWidget {
   final bool from_categories;
   final bool descintion;
   final void Function()? onTab;
+  final String? rewardID_show;
+  final String? rewardID;
 
   const Archive({
     super.key,
@@ -43,6 +46,8 @@ class Archive extends StatefulWidget {
     this.descintion = false,
     required this.from_categories,
     required this.box_article_mode,
+    required this.rewardID_show,
+    required this.rewardID,
   });
 
   @override
@@ -67,12 +72,47 @@ class _ArchiveState extends State<Archive>
   bool date_app_bar = true;
 
   final ScrollController _scrollController = ScrollController();
-
+  bool _isAdLoaded = false;
+  RewardedAd? _rewardedAd;
   int currentPage = 1;
   int postsPerPage = 10;
   FetchMain? _fetchMainDataModel;
   String? title;
   ArchivesModel? archivesModel;
+
+  // Load the rewarded ad
+  void _loadAndShowRewardedAd() {
+    RewardedAd.load(
+      adUnitId: widget.rewardID.toString(),
+      request: AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (RewardedAd ad) {
+          setState(() {
+            _rewardedAd = ad;
+            _isAdLoaded = true;
+          });
+          // عرض الإعلان فور تحميله
+          _showRewardedAd();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('فشل تحميل الإعلان المكافأة: $error');
+        },
+      ),
+    );
+  }
+
+  // عرض الإعلان المكافأة عند تحميله
+  void _showRewardedAd() {
+    if (_isAdLoaded) {
+      _rewardedAd?.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+          print('المستخدم حصل على مكافأة: ${reward.amount} ${reward.type}');
+        },
+      );
+    } else {
+      print('الإعلان غير محمل بعد.');
+    }
+  }
 
   Future<void> fetchData() async {
     try {
@@ -185,6 +225,9 @@ class _ArchiveState extends State<Archive>
   @override
   void initState() {
     super.initState();
+    widget.rewardID_show == "on" && widget.title_show == true
+        ? _loadAndShowRewardedAd()
+        : null;
     fetchData();
     print("=============================${widget.id}");
 
@@ -975,6 +1018,8 @@ Widget getShapeWidget(
                             builder:
                                 (context) => Archive(
                                   from_categories: true,
+                                  rewardID: rewardID,
+                                  rewardID_show: rewardID_show,
                                   name: post.categories[0].name,
                                   id: post.categories[0].id,
                                   title_show: true,
@@ -1074,6 +1119,8 @@ Widget getShapeWidget(
                   MaterialPageRoute(
                     builder:
                         (context) => Archive(
+                          rewardID: rewardID,
+                          rewardID_show: rewardID_show,
                           box_article_mode: shapecategory,
                           id: post.categories[0].id,
                           name: post.categories[0].name,
@@ -1094,6 +1141,8 @@ Widget getShapeWidget(
             horizontal: paddingHorizontal,
           ),
           child: SingleSection(
+            rewardID: rewardID,
+            rewardID_show: rewardID_show,
             shape: shape!,
             onTap: () {
               Navigator.push(
@@ -1188,6 +1237,8 @@ Widget getShapeWidget(
                                 MaterialPageRoute(
                                   builder:
                                       (context) => Archive(
+                                        rewardID: rewardID,
+                                        rewardID_show: rewardID_show,
                                         box_article_mode: shape,
                                         from_categories: true,
                                         id: post.categories.first.id,
@@ -1362,6 +1413,8 @@ Widget getShapeWidget(
                 MaterialPageRoute(
                   builder:
                       (context) => Archive(
+                        rewardID: rewardID,
+                        rewardID_show: rewardID_show,
                         box_article_mode: shapecategory,
                         id: post.categories[0].id,
                         name: post.categories[0].name,
@@ -1440,6 +1493,8 @@ Widget getshapetags(
                           MaterialPageRoute(
                             builder:
                                 (context) => Archive(
+                                  rewardID: rewardID,
+                                  rewardID_show: rewardID_show,
                                   from_categories: true,
                                   name: post.categories[0].name,
                                   id: post.categories[0].id,
@@ -1530,6 +1585,8 @@ Widget getshapetags(
                   MaterialPageRoute(
                     builder:
                         (context) => Archive(
+                          rewardID: rewardID,
+                          rewardID_show: rewardID_show,
                           box_article_mode: shapetags,
                           id: post.categories[0].id,
                           name: post.categories[0].name,
@@ -1547,6 +1604,8 @@ Widget getshapetags(
         (post) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
           child: SingleSection(
+            rewardID: rewardID,
+            rewardID_show: rewardID_show,
             shape: shape!,
             onTap: () {
               Navigator.push(
@@ -1641,6 +1700,8 @@ Widget getshapetags(
                                 MaterialPageRoute(
                                   builder:
                                       (context) => Archive(
+                                        rewardID: rewardID,
+                                        rewardID_show: rewardID_show,
                                         box_article_mode: shape,
                                         from_categories: true,
                                         id: post.categories.first.id,
@@ -1815,6 +1876,8 @@ Widget getshapetags(
                 MaterialPageRoute(
                   builder:
                       (context) => Archive(
+                        rewardID: rewardID,
+                        rewardID_show: rewardID_show,
                         box_article_mode: shapetags,
                         id: post.categories[0].id,
                         name: post.categories[0].name,

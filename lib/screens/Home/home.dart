@@ -603,6 +603,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -647,6 +657,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -692,6 +712,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'] ?? 0,
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -731,6 +761,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -783,6 +823,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -820,6 +870,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -874,6 +934,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -918,6 +988,16 @@ class _HomeState extends State<Home>
                                                     widgetData['WidgetID'],
                                                 per_page: "10",
                                                 page: "1",
+                                                rewardID_show:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .enableRewardedAds,
+                                                rewardID:
+                                                    widget
+                                                        .fetchMainDataModel
+                                                        .adsOptions
+                                                        .RewardedId,
                                               ),
                                         ),
                                       );
@@ -1020,6 +1100,13 @@ class _HomeState extends State<Home>
                     if (widget.fetchMainDataModel.categories.isNotEmpty)
                       ...widget.fetchMainDataModel.categories.map((category) {
                         return Archive(
+                          rewardID_show:
+                              widget
+                                  .fetchMainDataModel
+                                  .adsOptions
+                                  .enableRewardedAds,
+                          rewardID:
+                              widget.fetchMainDataModel.adsOptions.RewardedId,
                           descintion: true,
                           from_categories: true,
                           onTab: () {
@@ -1043,6 +1130,13 @@ class _HomeState extends State<Home>
                     if (widget.fetchMainDataModel.categories.isEmpty)
                       ...categories.map((category) {
                         return Archive(
+                          rewardID_show:
+                              widget
+                                  .fetchMainDataModel
+                                  .adsOptions
+                                  .enableRewardedAds,
+                          rewardID:
+                              widget.fetchMainDataModel.adsOptions.RewardedId,
                           descintion: true,
                           from_categories: true,
                           onTab: () {

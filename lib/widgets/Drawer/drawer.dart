@@ -15,11 +15,8 @@ class CustomDrawer extends StatefulWidget {
   final void Function()? onTap;
   final String? shape;
 
-  CustomDrawer({
-    Key? key,
-    required this.onTap,
-    required this.shape,
-  }) : super(key: key);
+  CustomDrawer({Key? key, required this.onTap, required this.shape})
+    : super(key: key);
 
   @override
   _CustomDrawerState createState() => _CustomDrawerState();
@@ -105,11 +102,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
     try {
       final response = await http.get(
-        Uri.parse('${YourColorJson().baseUrl}/wp-json/wp/v2/categories')
-            .replace(queryParameters: {
-          'page': page.toString(),
-          'per_page': perPage.toString(),
-        }),
+        Uri.parse(
+          '${YourColorJson().baseUrl}/wp-json/wp/v2/categories',
+        ).replace(
+          queryParameters: {
+            'page': page.toString(),
+            'per_page': perPage.toString(),
+          },
+        ),
       );
 
       if (response.statusCode == 200) {
@@ -121,8 +121,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
           if (page == 1) {
             categories = data.map((json) => Categoryy.fromJson(json)).toList();
           } else {
-            categories!
-                .addAll(data.map((json) => Categoryy.fromJson(json)).toList());
+            categories!.addAll(
+              data.map((json) => Categoryy.fromJson(json)).toList(),
+            );
           }
 
           currentPage = page;
@@ -153,12 +154,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
       width: double.infinity,
       backgroundColor: Colors.white,
       child: SafeArea(
-        child: categories == null
-            ? Center(
-                child: CircularProgressIndicator(
-                color: Colorss().MainColor,
-              ))
-            : _buildCategoryList(),
+        child:
+            categories == null
+                ? Center(
+                  child: CircularProgressIndicator(color: Colorss().MainColor),
+                )
+                : _buildCategoryList(),
       ),
     );
   }
@@ -175,16 +176,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
           onTab: () {
             Navigator.pop(context);
           },
-          search: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Search(
-                bobox_article_mode:
-                    _fetchMainDataModel?.archiveSearchOptions.boxArticleMode ??
-                        '',
+          search:
+              () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder:
+                      (context) => Search(
+                        bobox_article_mode:
+                            _fetchMainDataModel
+                                ?.archiveSearchOptions
+                                .boxArticleMode ??
+                            '',
+                      ),
+                ),
               ),
-            ),
-          ),
           isLoading: isLoadingLogo,
           scaffoldKey: _scaffoldKey,
           regionTextColor: Colors.white,
@@ -214,66 +219,80 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 endIndex = categories!.length;
               }
 
-              List<Categoryy> rowCategories =
-                  categories!.sublist(startIndex, endIndex);
+              List<Categoryy> rowCategories = categories!.sublist(
+                startIndex,
+                endIndex,
+              );
 
               bool isLastItemInColumn =
                   index == (categories!.length / 3).ceil() - 1;
 
               return Padding(
                 padding: EdgeInsets.only(
-                    bottom: index == (categories!.length / 3).ceil() - 1
-                        ? 10.0
-                        : 0),
+                  bottom:
+                      index == (categories!.length / 3).ceil() - 1 ? 10.0 : 0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: rowCategories
-                      .asMap()
-                      .entries
-                      .map((entry) {
-                        Categoryy category = entry.value;
+                  children:
+                      rowCategories
+                          .asMap()
+                          .entries
+                          .map((entry) {
+                            Categoryy category = entry.value;
 
-                        return Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: InkWell(
-                              overlayColor:
-                                  const WidgetStatePropertyAll(Colors.white),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Archive(
-                                      box_article_mode: widget.shape,
-                                      from_categories: true,
-                                      onTab: () {
-                                        Navigator.pop(context);
-                                      },
-                                      title_show: true,
-                                      id: category.id,
-                                      name: category.name!,
-                                    ),
+                            return Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5,
+                                ),
+                                child: InkWell(
+                                  overlayColor: const WidgetStatePropertyAll(
+                                    Colors.white,
                                   ),
-                                );
-                              },
-                              child: _buildMenuItem(
-                                category.name,
-                                startIndex,
-                                category.count,
-                                category.icon!,
-                                isLastItemInColumn,
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) => Archive(
+                                              rewardID:
+                                                  _fetchMainDataModel!
+                                                      .adsOptions
+                                                      .RewardedId,
+                                              rewardID_show:
+                                                  _fetchMainDataModel!
+                                                      .adsOptions
+                                                      .enableRewardedAds,
+                                              box_article_mode: widget.shape,
+                                              from_categories: true,
+                                              onTab: () {
+                                                Navigator.pop(context);
+                                              },
+                                              title_show: true,
+                                              id: category.id,
+                                              name: category.name!,
+                                            ),
+                                      ),
+                                    );
+                                  },
+                                  child: _buildMenuItem(
+                                    category.name,
+                                    startIndex,
+                                    category.count,
+                                    category.icon!,
+                                    isLastItemInColumn,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        );
-                      })
-                      .toList()
-                      .expand((widget) => [
-                            widget,
-                            const SizedBox(width: 10),
-                          ])
-                      .toList()
-                    ..removeLast(),
+                            );
+                          })
+                          .toList()
+                          .expand(
+                            (widget) => [widget, const SizedBox(width: 10)],
+                          )
+                          .toList()
+                        ..removeLast(),
                 ),
               );
             },
@@ -283,8 +302,13 @@ class _CustomDrawerState extends State<CustomDrawer> {
     );
   }
 
-  Widget _buildMenuItem(String? title, int index, int count, String icon,
-      bool isLastItemInColumn) {
+  Widget _buildMenuItem(
+    String? title,
+    int index,
+    int count,
+    String icon,
+    bool isLastItemInColumn,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -295,9 +319,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color: Colors.white,
-            border: Border.all(
-              color: const Color(0xffe5eaef),
-            ),
+            border: Border.all(color: const Color(0xffe5eaef)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -305,16 +327,12 @@ class _CustomDrawerState extends State<CustomDrawer> {
             children: [
               const SizedBox(height: 5),
               icon.isNotEmpty
-                  ? SvgPicture.string(
-                      icon,
-                      width: 70,
-                      height: 50,
-                    )
+                  ? SvgPicture.string(icon, width: 70, height: 50)
                   : Icon(
-                      Icons.error_outline_outlined,
-                      size: 30.0,
-                      color: Colors.grey[400],
-                    ),
+                    Icons.error_outline_outlined,
+                    size: 30.0,
+                    color: Colors.grey[400],
+                  ),
               const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 3.0),

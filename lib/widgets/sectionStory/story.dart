@@ -11,6 +11,8 @@ class StoryListViewWidget extends StatelessWidget {
   final String title;
   final String shape;
   final void Function()? onTap;
+  final String? rewardID_show;
+  final String? rewardID;
 
   const StoryListViewWidget({
     Key? key,
@@ -18,6 +20,8 @@ class StoryListViewWidget extends StatelessWidget {
     required this.title,
     required this.shape,
     this.onTap,
+    this.rewardID_show,
+    this.rewardID,
   }) : super(key: key);
 
   @override
@@ -68,6 +72,8 @@ class StoryListViewWidget extends StatelessWidget {
                             MaterialPageRoute(
                               builder:
                                   (context) => Archive(
+                                    rewardID: rewardID,
+                                    rewardID_show: rewardID_show,
                                     id: post.id,
                                     name: post.category.name,
                                     title_show: true,

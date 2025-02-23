@@ -52,6 +52,8 @@ Widget buildsectionGrid(
                         MaterialPageRoute(
                           builder:
                               (context) => Archive(
+                                rewardID: rewardID,
+                                rewardID_show: rewardID_show,
                                 box_article_mode: shape,
                                 from_categories: true,
                                 id: post.category.id,

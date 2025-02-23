@@ -13,6 +13,8 @@ class SingleSection extends StatelessWidget {
   final int idCategory;
   final String Name;
   final String shape;
+  final String? rewardID_show;
+  final String? rewardID;
 
   const SingleSection({
     super.key,
@@ -24,6 +26,8 @@ class SingleSection extends StatelessWidget {
     required this.idCategory,
     required this.Name,
     required this.shape,
+    required this.rewardID_show,
+    required this.rewardID,
   });
 
   @override
@@ -71,6 +75,8 @@ class SingleSection extends StatelessWidget {
                     MaterialPageRoute(
                       builder:
                           (context) => Archive(
+                            rewardID: rewardID,
+                            rewardID_show: rewardID_show,
                             box_article_mode: shape,
                             from_categories: true,
                             onTab: () {

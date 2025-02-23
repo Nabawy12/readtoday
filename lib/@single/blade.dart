@@ -275,6 +275,16 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
                                                     MaterialPageRoute(
                                                       builder:
                                                           (context) => Archive(
+                                                            rewardID:
+                                                                provider
+                                                                    .fetchMainDataModel!
+                                                                    .adsOptions
+                                                                    .RewardedId,
+                                                            rewardID_show:
+                                                                provider
+                                                                    .fetchMainDataModel!
+                                                                    .adsOptions
+                                                                    .enableRewardedAds,
                                                             box_article_mode:
                                                                 provider
                                                                     .fetchMainDataModel
@@ -754,6 +764,16 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
                                                                     (
                                                                       context,
                                                                     ) => Archive(
+                                                                      rewardID:
+                                                                          provider
+                                                                              .fetchMainDataModel!
+                                                                              .adsOptions
+                                                                              .RewardedId,
+                                                                      rewardID_show:
+                                                                          provider
+                                                                              .fetchMainDataModel!
+                                                                              .adsOptions
+                                                                              .enableRewardedAds,
                                                                       box_article_mode:
                                                                           provider
                                                                               .fetchMainDataModel
@@ -788,40 +808,46 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
                                           )
                                         else
                                           Container(),
-                                        recommendedSection(
-                                          "مقالات ذات صله",
-                                          false,
-                                          () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder:
-                                                    (context) => Archive(
-                                                      id:
-                                                          post
-                                                              .customPostOptions
-                                                              .category
-                                                              .first
-                                                              .id,
-                                                      name:
-                                                          post
-                                                              .customPostOptions
-                                                              .category
-                                                              .first
-                                                              .title,
-                                                      title_show: true,
-                                                      from_categories: false,
-                                                      box_article_mode:
-                                                          provider
-                                                              .fetchMainDataModel
-                                                              ?.archiveCategoryOptions
-                                                              .boxArticleMode ??
-                                                          '',
-                                                    ),
-                                              ),
-                                            );
-                                          },
-                                        ),
+                                        recommendedSection("مقالات ذات صله", false, () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => Archive(
+                                                    rewardID:
+                                                        provider
+                                                            .fetchMainDataModel!
+                                                            .adsOptions
+                                                            .RewardedId,
+                                                    rewardID_show:
+                                                        provider
+                                                            .fetchMainDataModel!
+                                                            .adsOptions
+                                                            .enableRewardedAds,
+                                                    id:
+                                                        post
+                                                            .customPostOptions
+                                                            .category
+                                                            .first
+                                                            .id,
+                                                    name:
+                                                        post
+                                                            .customPostOptions
+                                                            .category
+                                                            .first
+                                                            .title,
+                                                    title_show: true,
+                                                    from_categories: false,
+                                                    box_article_mode:
+                                                        provider
+                                                            .fetchMainDataModel
+                                                            ?.archiveCategoryOptions
+                                                            .boxArticleMode ??
+                                                        '',
+                                                  ),
+                                            ),
+                                          );
+                                        }),
                                         ListView.builder(
                                           physics:
                                               const NeverScrollableScrollPhysics(),
@@ -885,6 +911,16 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
                                                             (
                                                               context,
                                                             ) => Archive(
+                                                              rewardID:
+                                                                  provider
+                                                                      .fetchMainDataModel!
+                                                                      .adsOptions
+                                                                      .RewardedId,
+                                                              rewardID_show:
+                                                                  provider
+                                                                      .fetchMainDataModel!
+                                                                      .adsOptions
+                                                                      .enableRewardedAds,
                                                               id: postt.id,
                                                               name: postt.title,
                                                               title_show: true,

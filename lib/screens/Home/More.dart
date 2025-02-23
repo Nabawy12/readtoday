@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,6 +31,8 @@ class More_Home extends StatefulWidget {
   final String page;
   final String? shapemore;
   final bool story;
+  final String? rewardID_show;
+  final String? rewardID;
 
   const More_Home({
     super.key,
@@ -38,6 +41,8 @@ class More_Home extends StatefulWidget {
     required this.page,
     this.story = false,
     this.shapemore,
+    required this.rewardID_show,
+    required this.rewardID,
   });
 
   @override
@@ -54,10 +59,13 @@ class _More_HomeState extends State<More_Home> {
   String? error;
   MoreHome? moreHome;
   FetchMain? _fetchMainDataModel;
+  RewardedAd? _rewardedAd;
+  bool _isAdLoaded = false;
 
   @override
   void initState() {
     super.initState();
+    widget.rewardID_show == "on" ? _loadAndShowRewardedAd() : null;
     currentPage = int.parse(
       widget.page,
     ); // Initialize the page from the passed argument
@@ -65,6 +73,40 @@ class _More_HomeState extends State<More_Home> {
     _scrollController.addListener(_scrollListener);
     fetchAllData();
     _fetchMainData();
+  }
+
+  // Load the rewarded ad
+  void _loadAndShowRewardedAd() {
+    RewardedAd.load(
+      adUnitId: widget.rewardID.toString(),
+      request: AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (RewardedAd ad) {
+          setState(() {
+            _rewardedAd = ad;
+            _isAdLoaded = true;
+          });
+          // عرض الإعلان فور تحميله
+          _showRewardedAd();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('فشل تحميل الإعلان المكافأة: $error');
+        },
+      ),
+    );
+  }
+
+  // عرض الإعلان المكافأة عند تحميله
+  void _showRewardedAd() {
+    if (_isAdLoaded) {
+      _rewardedAd?.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+          print('المستخدم حصل على مكافأة: ${reward.amount} ${reward.type}');
+        },
+      );
+    } else {
+      print('الإعلان غير محمل بعد.');
+    }
   }
 
   void _fetchMainData() async {
@@ -543,6 +585,14 @@ class _More_HomeState extends State<More_Home> {
                                                               (
                                                                 context,
                                                               ) => Archive(
+                                                                rewardID:
+                                                                    _fetchMainDataModel!
+                                                                        .adsOptions
+                                                                        .RewardedId,
+                                                                rewardID_show:
+                                                                    _fetchMainDataModel!
+                                                                        .adsOptions
+                                                                        .enableRewardedAds,
                                                                 box_article_mode:
                                                                     _fetchMainDataModel!
                                                                         .archiveCategoryOptions
@@ -730,6 +780,8 @@ Widget getShapeWidget(
                             builder:
                                 (context) => Archive(
                                   from_categories: true,
+                                  rewardID: rewardID,
+                                  rewardID_show: rewardID_show,
                                   name: post.category.title,
                                   id: post.category.id,
                                   title_show: true,
@@ -819,6 +871,8 @@ Widget getShapeWidget(
                   MaterialPageRoute(
                     builder:
                         (context) => Archive(
+                          rewardID: rewardID,
+                          rewardID_show: rewardID_show,
                           box_article_mode: archive_shape,
                           id: post.category.id,
                           name: post.category.title,
@@ -836,6 +890,8 @@ Widget getShapeWidget(
         (post) => Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10),
           child: SingleSection(
+            rewardID: rewardID,
+            rewardID_show: rewardID_show,
             shape: shape!,
             onTap: () {
               Navigator.push(
@@ -932,6 +988,8 @@ Widget getShapeWidget(
                                 MaterialPageRoute(
                                   builder:
                                       (context) => Archive(
+                                        rewardID: rewardID,
+                                        rewardID_show: rewardID_show,
                                         box_article_mode: archive_shape,
                                         from_categories: true,
                                         id: post.category.id,
@@ -1108,6 +1166,8 @@ Widget getShapeWidget(
                 MaterialPageRoute(
                   builder:
                       (context) => Archive(
+                        rewardID: rewardID,
+                        rewardID_show: rewardID_show,
                         box_article_mode: archive_shape,
                         id: post.category.id,
                         name: post.category.title,

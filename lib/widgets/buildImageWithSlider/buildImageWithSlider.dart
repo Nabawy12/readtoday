@@ -148,6 +148,8 @@ class _ImageSliderWithDotsState extends State<buildImageWithSliderr> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => Archive(
+                                          rewardID: widget.rewardID,
+                                          rewardID_show: widget.rewardID_show,
                                           box_article_mode: widget.shape,
                                           from_categories: true,
                                           onTab: () {
