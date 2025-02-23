@@ -416,6 +416,12 @@ class _More_HomeState extends State<More_Home> {
                                                   ?.archiveCategoryOptions
                                                   .boxArticleMode ??
                                               '',
+                                          _fetchMainDataModel!
+                                              .adsOptions
+                                              .RewardedId,
+                                          _fetchMainDataModel!
+                                              .adsOptions
+                                              .enableRewardedAds,
                                         );
                                       },
                                     ),
@@ -503,6 +509,12 @@ class _More_HomeState extends State<More_Home> {
                                                     ?.archiveCategoryOptions
                                                     .boxArticleMode ??
                                                 '',
+                                            _fetchMainDataModel!
+                                                .adsOptions
+                                                .RewardedId,
+                                            _fetchMainDataModel!
+                                                .adsOptions
+                                                .enableRewardedAds,
                                           );
                                         } else {
                                           return SizedBox(
@@ -659,6 +671,8 @@ Widget getShapeWidget(
   String? shape,
   MoreHomePost post,
   String archive_shape,
+  String? rewardID,
+  String? rewardID_show,
 ) {
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
@@ -674,7 +688,12 @@ Widget getShapeWidget(
               () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               ),
           child: Container(
@@ -778,7 +797,13 @@ Widget getShapeWidget(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+
+                        id: post.id,
+                      ),
                 ),
               );
             },
@@ -816,7 +841,13 @@ Widget getShapeWidget(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+
+                        id: post.id,
+                      ),
                 ),
               );
             },
@@ -838,7 +869,13 @@ Widget getShapeWidget(
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SingleServicesPage(id: post.id),
+                    builder:
+                        (context) => SingleServicesPage(
+                          id_reward: rewardID.toString(),
+                          id_show: rewardID_show.toString(),
+
+                          id: post.id,
+                        ),
                   ),
                 );
               },
@@ -977,7 +1014,13 @@ Widget getShapeWidget(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: post.id,
+                    ),
               ),
             );
           },
@@ -1043,7 +1086,13 @@ Widget getShapeWidget(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: post.id,
+                    ),
               ),
             );
           },

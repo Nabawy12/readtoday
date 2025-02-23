@@ -11,6 +11,7 @@ class FetchMain {
   final ArchiveOptions archiveWidgetsOptions;
   final ArchiveOptions archiveSearchOptions;
   final SocialItems socialItems;
+  final AdsOptions adsOptions; // Add this line for AdsOptions
 
   FetchMain({
     required this.logo,
@@ -25,29 +26,39 @@ class FetchMain {
     required this.archiveWidgetsOptions,
     required this.archiveSearchOptions,
     required this.socialItems,
+    required this.adsOptions, // Add this line to the constructor
   });
 
   factory FetchMain.fromJson(Map<String, dynamic> json) {
     return FetchMain(
       logo: json['logo'] ?? '',
       topHeaderShowsIn: json['top_header_showsin'] ?? false,
-      topHeaderOptions:
-          TopHeaderOptions.fromJson(json['top_header_options'] ?? {}),
+      topHeaderOptions: TopHeaderOptions.fromJson(
+        json['top_header_options'] ?? {},
+      ),
       topCategoriesShowsIn: json['top_categoryies_shows_in'] ?? false,
-      categories: (json['categories'] as List? ?? [])
-          .map((categoryJson) => Category.fromJson(categoryJson))
-          .toList(),
+      categories:
+          (json['categories'] as List? ?? [])
+              .map((categoryJson) => Category.fromJson(categoryJson))
+              .toList(),
       footerShowsIn: json['footer_showsin'] ?? false,
       footerOptions: FooterOptions.fromJson(json['footer_options'] ?? {}),
-      archiveCategoryOptions:
-          ArchiveOptions.fromJson(json['archive_category_options'] ?? {}),
-      archivePostTagOptions:
-          ArchiveOptions.fromJson(json['archive_post_tag_options'] ?? {}),
-      archiveWidgetsOptions:
-          ArchiveOptions.fromJson(json['archive_widgets_options'] ?? {}),
-      archiveSearchOptions:
-          ArchiveOptions.fromJson(json['archive_search_options'] ?? {}),
+      archiveCategoryOptions: ArchiveOptions.fromJson(
+        json['archive_category_options'] ?? {},
+      ),
+      archivePostTagOptions: ArchiveOptions.fromJson(
+        json['archive_post_tag_options'] ?? {},
+      ),
+      archiveWidgetsOptions: ArchiveOptions.fromJson(
+        json['archive_widgets_options'] ?? {},
+      ),
+      archiveSearchOptions: ArchiveOptions.fromJson(
+        json['archive_search_options'] ?? {},
+      ),
       socialItems: SocialItems.fromJson(json['socialItems'] ?? {}),
+      adsOptions: AdsOptions.fromJson(
+        json['ads_options'] ?? {},
+      ), // Add this line for adsOptions
     );
   }
 
@@ -65,6 +76,8 @@ class FetchMain {
       'archive_widgets_options': archiveWidgetsOptions.toJson(),
       'archive_search_options': archiveSearchOptions.toJson(),
       'socialItems': socialItems.toJson(),
+      'ads_options':
+          adsOptions.toJson(), // Add this line to include adsOptions in toJson
     };
   }
 }
@@ -102,11 +115,7 @@ class Category {
   final int count;
   final String name;
 
-  Category({
-    required this.id,
-    required this.count,
-    required this.name,
-  });
+  Category({required this.id, required this.count, required this.name});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(
@@ -117,11 +126,7 @@ class Category {
   }
 
   Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'count': count,
-      'name': name,
-    };
+    return {'id': id, 'count': count, 'name': name};
   }
 }
 
@@ -213,9 +218,10 @@ class ArchiveOptions {
   factory ArchiveOptions.fromJson(Map<String, dynamic> json) {
     return ArchiveOptions(
       boxArticleMode: json['box_article_mode'] ?? '',
-      postsPerPage: json['posts_per_page'] is String
-          ? int.tryParse(json['posts_per_page']) ?? 0
-          : json['posts_per_page'] ?? 0,
+      postsPerPage:
+          json['posts_per_page'] is String
+              ? int.tryParse(json['posts_per_page']) ?? 0
+              : json['posts_per_page'] ?? 0,
       sectionTitleShowsIn: json['section_title_showsin'] ?? false,
       sectionDescriptionShowsIn: json['section_description_showsin'] ?? false,
     );
@@ -227,6 +233,47 @@ class ArchiveOptions {
       'posts_per_page': postsPerPage,
       'section_title_showsin': sectionTitleShowsIn,
       'section_description_showsin': sectionDescriptionShowsIn,
+    };
+  }
+}
+
+class AdsOptions {
+  final String adClientId;
+  final String RewardedId;
+  final String adUnitIdBanner;
+  final String enableBannerAds;
+  final String enableInterstitialAds;
+  final String enableRewardedAds;
+
+  AdsOptions({
+    required this.adClientId,
+    required this.adUnitIdBanner,
+    required this.enableBannerAds,
+    required this.enableInterstitialAds,
+    required this.enableRewardedAds,
+    required this.RewardedId,
+  });
+
+  factory AdsOptions.fromJson(Map<String, dynamic> json) {
+    return AdsOptions(
+      adClientId: json['ad_client_id']?.toString() ?? '',
+      adUnitIdBanner: json['ad_unit_id_banner']?.toString() ?? '',
+      enableBannerAds: json['enable_banner_ads']?.toString() ?? 'false',
+      enableInterstitialAds:
+          json['enable_interstitial_ads']?.toString() ?? 'false',
+      enableRewardedAds: json['enable_rewarded_ads']?.toString() ?? 'false',
+      RewardedId: json['ad_unit_id_rewarded']?.toString() ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'ad_client_id': adClientId,
+      'ad_unit_id_banner': RewardedId,
+      'ad_unit_id_rewarded': adUnitIdBanner,
+      'enable_banner_ads': enableBannerAds,
+      'enable_interstitial_ads': enableInterstitialAds,
+      'enable_rewarded_ads': enableRewardedAds,
     };
   }
 }

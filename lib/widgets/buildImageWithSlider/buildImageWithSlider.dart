@@ -12,12 +12,16 @@ class buildImageWithSliderr extends StatefulWidget {
   final List<Post> posts;
   String title;
   String? shape;
+  String? rewardID;
+  String rewardID_show;
 
   buildImageWithSliderr({
     super.key,
     required this.posts,
     required this.title,
     required this.shape,
+    required this.rewardID,
+    required this.rewardID_show,
   });
 
   @override
@@ -107,7 +111,9 @@ class _ImageSliderWithDotsState extends State<buildImageWithSliderr> {
                               MaterialPageRoute(
                                 builder:
                                     (context) => SingleServicesPage(
+                                      id_reward: widget.rewardID.toString(),
                                       id: widget.posts[index].id,
+                                      id_show: widget.rewardID_show.toString(),
                                     ),
                               ),
                             );
@@ -173,6 +179,9 @@ class _ImageSliderWithDotsState extends State<buildImageWithSliderr> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => SingleServicesPage(
+                                          id_reward: widget.rewardID.toString(),
+                                          id_show:
+                                              widget.rewardID_show.toString(),
                                           id: widget.posts[index].id,
                                         ),
                                   ),

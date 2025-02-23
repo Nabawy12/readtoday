@@ -12,6 +12,10 @@ Widget buildArticleContent(
   String title,
   String shape,
   void Function()? onTap,
+  String bannerShow,
+  String bannerID,
+  String rewardID,
+  String rewardID_show,
 ) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -24,7 +28,13 @@ Widget buildArticleContent(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: posts.first.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: posts.first.id,
+                    ),
               ),
             );
           },
@@ -56,7 +66,13 @@ Widget buildArticleContent(
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SingleServicesPage(id: post.id),
+                      builder:
+                          (context) => SingleServicesPage(
+                            id_reward: rewardID.toString(),
+                            id_show: rewardID_show.toString(),
+
+                            id: post.id,
+                          ),
                     ),
                   );
                 },
@@ -92,10 +108,13 @@ Widget buildArticleContent(
           },
         ),
         const SizedBox(height: 10),
-        const DynamicAdWidget(
-          adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-          adType: 'banner',
-        ),
+        bannerShow == "on"
+            ? DynamicAdWidget(
+              adUnitId: bannerID,
+              // استبدل بـ Ad Unit ID الخاص بك
+              adType: 'banner',
+            )
+            : Container(),
       ],
     ),
   );

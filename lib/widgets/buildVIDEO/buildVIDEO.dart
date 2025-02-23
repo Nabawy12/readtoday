@@ -7,7 +7,13 @@ import '../../Model/Home/home.dart';
 import '../../YC Style/Image.dart';
 import '../style_6/style_6.dart';
 
-Widget buildVIDEO(List<Post> posts, String title, void Function()? onTap) {
+Widget buildVIDEO(
+  List<Post> posts,
+  String title,
+  void Function()? onTap,
+  String rewardID,
+  String rewardID_show,
+) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     mainAxisAlignment: MainAxisAlignment.center,
@@ -38,8 +44,11 @@ Widget buildVIDEO(List<Post> posts, String title, void Function()? onTap) {
                         context,
                         MaterialPageRoute(
                           builder:
-                              (context) =>
-                                  SingleServicesPage(id: posts[index].id),
+                              (context) => SingleServicesPage(
+                                id_reward: rewardID.toString(),
+                                id: posts[index].id,
+                                id_show: rewardID_show.toString(),
+                              ),
                         ),
                       );
                     },

@@ -9,6 +9,8 @@ Widget buildImageCarousel(
   List posts,
   PageController controller,
   String title,
+  String rewardID,
+  String rewardID_show,
 ) {
   return LayoutBuilder(
     builder: (context, constraints) {
@@ -23,11 +25,7 @@ Widget buildImageCarousel(
         children: [
           Padding(
             padding: EdgeInsets.symmetric(horizontal: padding),
-            child: recommendedSection(
-              title,
-              false,
-              onTap,
-            ),
+            child: recommendedSection(title, false, onTap),
           ),
           SizedBox(
             height: itemHeight,
@@ -37,9 +35,10 @@ Widget buildImageCarousel(
               itemCount: posts.length,
               itemBuilder: (context, index) {
                 final post = posts[index];
-                EdgeInsets itemMargin = index == 0
-                    ? EdgeInsets.only(right: padding, left: padding / 2)
-                    : EdgeInsets.symmetric(horizontal: padding / 2);
+                EdgeInsets itemMargin =
+                    index == 0
+                        ? EdgeInsets.only(right: padding, left: padding / 2)
+                        : EdgeInsets.symmetric(horizontal: padding / 2);
 
                 return InkWell(
                   overlayColor: WidgetStatePropertyAll(Colors.transparent),
@@ -47,9 +46,13 @@ Widget buildImageCarousel(
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SingleServicesPage(
-                          id: post.id,
-                        ),
+                        builder:
+                            (context) => SingleServicesPage(
+                              id_reward: rewardID.toString(),
+                              id_show: rewardID_show.toString(),
+
+                              id: post.id,
+                            ),
                       ),
                     );
                   },

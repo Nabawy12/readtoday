@@ -13,6 +13,8 @@ Widget buildsectionList(
   String title,
   String shape,
   BuildContext context,
+  String rewardID,
+  String rewardID_show,
 ) {
   return Column(
     children: [
@@ -31,7 +33,12 @@ Widget buildsectionList(
                   context,
                   MaterialPageRoute(
                     builder:
-                        (context) => SingleServicesPage(id: posts.first.id),
+                        (context) => SingleServicesPage(
+                          id_reward: rewardID.toString(),
+                          id_show: rewardID_show.toString(),
+
+                          id: posts.first.id,
+                        ),
                   ),
                 );
               },
@@ -61,7 +68,13 @@ Widget buildsectionList(
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SingleServicesPage(id: post.id),
+                      builder:
+                          (context) => SingleServicesPage(
+                            id_reward: rewardID.toString(),
+                            id_show: rewardID_show.toString(),
+
+                            id: post.id,
+                          ),
                     ),
                   );
                 },

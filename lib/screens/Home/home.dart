@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:lottie/lottie.dart';
@@ -52,6 +53,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home>
     with TickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   int backPressCount = 0;
+  late InterstitialAd _interstitialAd;
 
   final PageController _pageController = PageController(viewportFraction: 0.47);
   String? error;
@@ -89,6 +91,10 @@ class _HomeState extends State<Home>
   void initState() {
     super.initState();
     _handleDynamicLinks();
+    widget.fetchMainDataModel.adsOptions.enableInterstitialAds == "on"
+        ? _loadAndShowInterstitialAd()
+        : null;
+    _showInterstitialAd();
     /*
     fetchCategories();
 */
@@ -216,6 +222,43 @@ class _HomeState extends State<Home>
       await launch(url);
     } else {
       throw 'Could not launch $url';
+    }
+  }
+
+  // تحميل وعرض الإعلان التفاعلي
+  void _loadAndShowInterstitialAd() {
+    InterstitialAd.load(
+      adUnitId:
+          'ca-app-pub-3940256099942544/1033173712', // معرف وحدة الإعلان للاختبار
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          setState(() {
+            _interstitialAd = ad;
+            _isAdLoaded = true;
+          });
+          // عرض الإعلان فور تحميله
+          _showInterstitialAd();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          setState(() {
+            _isAdLoaded = false;
+          });
+          print('فشل تحميل الإعلان التفاعلي: ${error.message}');
+        },
+      ),
+    );
+  }
+
+  // عرض الإعلان التفاعلي عند تحميله
+  void _showInterstitialAd() {
+    if (_isAdLoaded) {
+      _interstitialAd?.show();
+      setState(() {
+        _isAdLoaded = false;
+      });
+    } else {
+      print('الإعلان التفاعلي غير محمل بعد.');
     }
   }
 
@@ -529,6 +572,16 @@ class _HomeState extends State<Home>
                                             .fetchMainDataModel
                                             .archiveCategoryOptions
                                             .boxArticleMode,
+                                    rewardID:
+                                        widget
+                                            .fetchMainDataModel
+                                            .adsOptions
+                                            .RewardedId,
+                                    rewardID_show:
+                                        widget
+                                            .fetchMainDataModel
+                                            .adsOptions
+                                            .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -558,6 +611,14 @@ class _HomeState extends State<Home>
                                     posts,
                                     _pageController,
                                     widgetData['title'] ?? '',
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -591,6 +652,23 @@ class _HomeState extends State<Home>
                                       );
                                       print(widgetData['WidgetID']);
                                     },
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableBannerAds
+                                        .toString(),
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .adUnitIdBanner,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -618,6 +696,14 @@ class _HomeState extends State<Home>
                                         ),
                                       );
                                     },
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -653,6 +739,23 @@ class _HomeState extends State<Home>
                                     pageController,
                                     context,
                                     _currentPage,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableBannerAds
+                                        .toString(),
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .adUnitIdBanner,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -683,9 +786,19 @@ class _HomeState extends State<Home>
                                               ),
                                         ),
                                       );
-                                      print(widgetData['WidgetID']);
+                                      if (kDebugMode) {
+                                        print(widgetData['WidgetID']);
+                                      }
                                     },
                                     context,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -719,6 +832,14 @@ class _HomeState extends State<Home>
                                         .archiveCategoryOptions
                                         .boxArticleMode,
                                     context,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -727,6 +848,11 @@ class _HomeState extends State<Home>
                                   BuildHeaderTopNews(
                                     posts: posts,
                                     title: widgetData['title'] ?? '',
+                                    rewardID:
+                                        widget
+                                            .fetchMainDataModel
+                                            .adsOptions
+                                            .RewardedId,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -760,6 +886,14 @@ class _HomeState extends State<Home>
                                         .fetchMainDataModel
                                         .archiveCategoryOptions
                                         .boxArticleMode,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .RewardedId,
+                                    widget
+                                        .fetchMainDataModel
+                                        .adsOptions
+                                        .enableRewardedAds,
                                   ),
                                 );
                               } else if (widgetData['Widget_type'] ==
@@ -1040,7 +1174,13 @@ class _HomeState extends State<Home>
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SingleServicesPage(id: int.parse(id)),
+            builder:
+                (context) => SingleServicesPage(
+                  id: int.parse(id),
+                  id_reward: widget.fetchMainDataModel.adsOptions.RewardedId,
+                  id_show:
+                      widget.fetchMainDataModel.adsOptions.enableRewardedAds,
+                ),
           ),
         );
       }

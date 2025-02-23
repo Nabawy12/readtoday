@@ -377,6 +377,10 @@ class _SearchState extends State<Search> {
                                         ?.archiveCategoryOptions
                                         .boxArticleMode ??
                                     '',
+                                _fetchMainDataModel!.adsOptions.RewardedId,
+                                _fetchMainDataModel!
+                                    .adsOptions
+                                    .enableRewardedAds,
                               );
                             } else {
                               return const SizedBox();
@@ -445,6 +449,8 @@ class _SearchState extends State<Search> {
                               _fetchMainDataModel!
                                   .archiveCategoryOptions
                                   .boxArticleMode,
+                              _fetchMainDataModel!.adsOptions.RewardedId,
+                              _fetchMainDataModel!.adsOptions.enableRewardedAds,
                             );
                           },
                         ),
@@ -461,6 +467,8 @@ Widget getShapesearch(
   String? shape,
   PostSearch post,
   String archiveShape,
+  String rewardID,
+  String rewardID_show,
 ) {
   double screenWidth = MediaQuery.of(context).size.width;
   double containerWidth = screenWidth * 0.9;
@@ -476,7 +484,12 @@ Widget getShapesearch(
               () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id: post.id,
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               ),
           child: Container(
@@ -578,7 +591,13 @@ Widget getShapesearch(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+
+                        id: post.id,
+                      ),
                 ),
               );
             },
@@ -616,7 +635,13 @@ Widget getShapesearch(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+
+                        id: post.id,
+                      ),
                 ),
               );
             },
@@ -635,7 +660,13 @@ Widget getShapesearch(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: post.id,
+                    ),
               ),
             );
           },
@@ -771,7 +802,13 @@ Widget getShapesearch(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: post.id,
+                    ),
               ),
             );
           },
@@ -837,7 +874,13 @@ Widget getShapesearch(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: post.id,
+                    ),
               ),
             );
           },

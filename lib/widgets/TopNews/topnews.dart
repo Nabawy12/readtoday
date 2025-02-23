@@ -9,8 +9,13 @@ import '../../Model/Home/home.dart';
 class BuildHeaderTopNews extends StatefulWidget {
   final List<Post> posts;
   final String title;
+  final String rewardID;
 
-  const BuildHeaderTopNews({required this.posts, required this.title});
+  const BuildHeaderTopNews({
+    required this.posts,
+    required this.title,
+    required this.rewardID,
+  });
 
   @override
   _BuildHeaderTopNewsState createState() => _BuildHeaderTopNewsState();
@@ -89,8 +94,15 @@ class _BuildHeaderTopNewsState extends State<BuildHeaderTopNews> {
 class AutoSliderTopNew extends StatelessWidget {
   final List<Post> posts;
   final PageController pageController;
+  final String? rewardID;
+  final String? rewardID_show;
 
-  const AutoSliderTopNew({required this.posts, required this.pageController});
+  const AutoSliderTopNew({
+    required this.posts,
+    required this.pageController,
+    this.rewardID,
+    this.rewardID_show,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +121,12 @@ class AutoSliderTopNew extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: posts[index].id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id: posts[index].id,
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               );
             },

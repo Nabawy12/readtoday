@@ -512,6 +512,10 @@ class _ArchiveState extends State<Archive>
                                   _fetchMainDataModel!
                                       .archiveCategoryOptions
                                       .boxArticleMode,
+                                  _fetchMainDataModel!.adsOptions.RewardedId,
+                                  _fetchMainDataModel!
+                                      .adsOptions
+                                      .enableRewardedAds,
                                 );
                               } else {
                                 final post = posts[index - (isLoading ? 2 : 1)];
@@ -522,6 +526,10 @@ class _ArchiveState extends State<Archive>
                                   _fetchMainDataModel!
                                       .archiveCategoryOptions
                                       .boxArticleMode,
+                                  _fetchMainDataModel!.adsOptions.RewardedId,
+                                  _fetchMainDataModel!
+                                      .adsOptions
+                                      .enableRewardedAds,
                                 );
                               }
                             },
@@ -689,6 +697,10 @@ class _ArchiveState extends State<Archive>
                                   _fetchMainDataModel
                                       ?.archiveCategoryOptions
                                       .boxArticleMode,
+                                  _fetchMainDataModel!.adsOptions.RewardedId,
+                                  _fetchMainDataModel!
+                                      .adsOptions
+                                      .enableRewardedAds,
                                 );
                               } else {
                                 final post = posts[index - (isLoading ? 2 : 1)];
@@ -699,6 +711,10 @@ class _ArchiveState extends State<Archive>
                                   _fetchMainDataModel
                                       ?.archiveCategoryOptions
                                       .boxArticleMode,
+                                  _fetchMainDataModel!.adsOptions.RewardedId,
+                                  _fetchMainDataModel!
+                                      .adsOptions
+                                      .enableRewardedAds,
                                 );
                               }
                             },
@@ -796,6 +812,8 @@ class _ArchiveState extends State<Archive>
                             _fetchMainDataModel!
                                 .archiveCategoryOptions
                                 .boxArticleMode,
+                            _fetchMainDataModel!.adsOptions.RewardedId,
+                            _fetchMainDataModel!.adsOptions.enableRewardedAds,
                           );
                         },
                       ),
@@ -868,6 +886,8 @@ class _ArchiveState extends State<Archive>
                                     ?.archiveCategoryOptions
                                     .boxArticleMode ??
                                 '',
+                            _fetchMainDataModel!.adsOptions.RewardedId,
+                            _fetchMainDataModel!.adsOptions.enableRewardedAds,
                           );
                         },
                       ),
@@ -889,6 +909,8 @@ Widget getShapeWidget(
   String? shape,
   ArchivePost post,
   shapecategory,
+  String? rewardID,
+  String? rewardID_show,
 ) {
   double screenWidth = MediaQuery.of(context).size.width;
   double containerWidth = screenWidth * 0.9;
@@ -907,7 +929,12 @@ Widget getShapeWidget(
               () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               ),
           child: Container(
@@ -1021,7 +1048,12 @@ Widget getShapeWidget(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               );
             },
@@ -1067,7 +1099,12 @@ Widget getShapeWidget(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               );
             },
@@ -1089,7 +1126,12 @@ Widget getShapeWidget(
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SingleServicesPage(id: post.id),
+                    builder:
+                        (context) => SingleServicesPage(
+                          id: post.id,
+                          id_reward: rewardID.toString(),
+                          id_show: rewardID_show.toString(),
+                        ),
                   ),
                 );
               },
@@ -1228,7 +1270,12 @@ Widget getShapeWidget(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id: post.id,
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+                    ),
               ),
             );
           },
@@ -1291,7 +1338,12 @@ Widget getShapeWidget(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id: post.id,
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+                    ),
               ),
             );
           },
@@ -1330,6 +1382,8 @@ Widget getshapetags(
   String? shape,
   ArchivePost post,
   shapetags,
+  String? rewardID,
+  String? rewardID_show,
 ) {
   double screenWidth = MediaQuery.of(context).size.width;
   double containerWidth = screenWidth * 0.9;
@@ -1345,7 +1399,12 @@ Widget getshapetags(
               () => Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               ),
           child: Container(
@@ -1449,7 +1508,12 @@ Widget getshapetags(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               );
             },
@@ -1488,7 +1552,12 @@ Widget getshapetags(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id: post.id,
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+                      ),
                 ),
               );
             },
@@ -1510,7 +1579,12 @@ Widget getshapetags(
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SingleServicesPage(id: post.id),
+                    builder:
+                        (context) => SingleServicesPage(
+                          id: post.id,
+                          id_reward: rewardID.toString(),
+                          id_show: rewardID_show.toString(),
+                        ),
                   ),
                 );
               },
@@ -1649,7 +1723,12 @@ Widget getshapetags(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id: post.id,
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+                    ),
               ),
             );
           },
@@ -1715,7 +1794,12 @@ Widget getshapetags(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: post.id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id: post.id,
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+                    ),
               ),
             );
           },

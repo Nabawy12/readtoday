@@ -15,6 +15,10 @@ Widget buildHeader_new_newss(
   PageController pagecontroller,
   BuildContext context,
   int currentpage,
+  String bannerShow,
+  String bannerID,
+  String rewardID,
+  String rewardID_show,
 ) {
   return Column(
     children: [
@@ -30,7 +34,13 @@ Widget buildHeader_new_newss(
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => SingleServicesPage(id: posts[0].id),
+                builder:
+                    (context) => SingleServicesPage(
+                      id_reward: rewardID.toString(),
+                      id_show: rewardID_show.toString(),
+
+                      id: posts[0].id,
+                    ),
               ),
             );
           },
@@ -58,7 +68,13 @@ Widget buildHeader_new_newss(
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SingleServicesPage(id: post.id),
+                  builder:
+                      (context) => SingleServicesPage(
+                        id_reward: rewardID.toString(),
+                        id_show: rewardID_show.toString(),
+
+                        id: post.id,
+                      ),
                 ),
               );
             },
@@ -96,11 +112,13 @@ Widget buildHeader_new_newss(
         },
       ),
       const SizedBox(height: 10),
-      const DynamicAdWidget(
-        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
-        // استبدل بـ Ad Unit ID الخاص بك
-        adType: 'banner',
-      ),
+      bannerShow == "on"
+          ? DynamicAdWidget(
+            adUnitId: bannerID,
+            // استبدل بـ Ad Unit ID الخاص بك
+            adType: 'banner',
+          )
+          : Container(),
     ],
   );
 }

@@ -13,6 +13,8 @@ Widget buildsectionGrid(
   String shape,
   void Function()? onTap,
   BuildContext context,
+  String? rewardID,
+  String rewardID_show,
 ) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,7 +65,13 @@ Widget buildsectionGrid(
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SingleServicesPage(id: post.id),
+                        builder:
+                            (context) => SingleServicesPage(
+                              id_reward: rewardID.toString(),
+                              id_show: rewardID_show.toString(),
+
+                              id: post.id,
+                            ),
                       ),
                     );
                   },

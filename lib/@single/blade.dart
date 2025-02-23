@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:readtoday/widgets/style_6/style_6.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -27,8 +28,15 @@ import '../widgets/style_8/style_8.dart';
 
 class SingleServicesPage extends StatefulWidget {
   final int id;
+  final String id_reward;
+  final String id_show;
 
-  const SingleServicesPage({super.key, required this.id});
+  const SingleServicesPage({
+    super.key,
+    required this.id,
+    required this.id_reward,
+    required this.id_show,
+  });
 
   @override
   _SingleServicesPageState createState() => _SingleServicesPageState();
@@ -36,10 +44,47 @@ class SingleServicesPage extends StatefulWidget {
 
 class _SingleServicesPageState extends State<SingleServicesPage> {
   late SingleServicesProvider provider;
+  RewardedAd? _rewardedAd;
+  bool _isAdLoaded = false;
+  // Load the rewarded ad
+  void _loadAndShowRewardedAd() {
+    RewardedAd.load(
+      adUnitId: widget.id_reward,
+      request: AdRequest(),
+      rewardedAdLoadCallback: RewardedAdLoadCallback(
+        onAdLoaded: (RewardedAd ad) {
+          setState(() {
+            _rewardedAd = ad;
+            _isAdLoaded = true;
+          });
+          // عرض الإعلان فور تحميله
+          _showRewardedAd();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          print('فشل تحميل الإعلان المكافأة: $error');
+        },
+      ),
+    );
+  }
+
+  // عرض الإعلان المكافأة عند تحميله
+  void _showRewardedAd() {
+    if (_isAdLoaded) {
+      _rewardedAd?.show(
+        onUserEarnedReward: (AdWithoutView ad, RewardItem reward) {
+          print('المستخدم حصل على مكافأة: ${reward.amount} ${reward.type}');
+        },
+      );
+    } else {
+      print('الإعلان غير محمل بعد.');
+    }
+  }
 
   @override
   void initState() {
     super.initState();
+    widget.id_show == 'on' ? _loadAndShowRewardedAd() : null;
+    _showRewardedAd();
     provider = SingleServicesProvider();
     provider.fetchPosts(widget.id, isRefresh: true);
     provider.positionsListener.itemPositions.addListener(() {
@@ -51,6 +96,8 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
 
   @override
   void dispose() {
+    _rewardedAd?.dispose();
+
     provider.positionsListener.itemPositions.removeListener(() {
       provider.updateLastVisibleIndex();
       provider.checkScroll();
@@ -801,10 +848,21 @@ class _SingleServicesPageState extends State<SingleServicesPage> {
                                                     context,
                                                     MaterialPageRoute(
                                                       builder:
-                                                          (context) =>
-                                                              SingleServicesPage(
-                                                                id: postt.id,
-                                                              ),
+                                                          (
+                                                            context,
+                                                          ) => SingleServicesPage(
+                                                            id_reward:
+                                                                provider
+                                                                    .fetchMainDataModel!
+                                                                    .adsOptions
+                                                                    .RewardedId,
+                                                            id: postt.id,
+                                                            id_show:
+                                                                provider
+                                                                    .fetchMainDataModel!
+                                                                    .adsOptions
+                                                                    .enableRewardedAds,
+                                                          ),
                                                     ),
                                                   );
                                                 },
